@@ -1,6 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { App } from '../App';
 
+type Story = StoryObj<typeof App>;
+
 export default {
   component: App,
   title: 'example/App',
@@ -9,7 +11,5 @@ export default {
     layout: 'centered',
   },
 } satisfies Meta<typeof App>;
-
-type Story = StoryObj<typeof App>;
 
 export const Default: Story = {};

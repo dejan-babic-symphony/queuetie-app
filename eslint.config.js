@@ -3,7 +3,6 @@ import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
-import prettier from 'eslint-plugin-prettier';
 
 export default tseslint.config(
   { ignores: ['dist'] },
@@ -11,7 +10,7 @@ export default tseslint.config(
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommended,
-      prettier.configs.recommended,
+      'plugin:prettier/recommended',
     ],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
@@ -21,11 +20,20 @@ export default tseslint.config(
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      prettier: prettier,
+      import: 'eslint-plugin-import',
+    },
+    settings: {
+      'import/resolver': {
+        alias: {
+          map: [['@', path.resolve(__dirname, './src')]],
+          extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+        },
+      },
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      'import/no-unresolved': 'error',
     },
   }
 );
